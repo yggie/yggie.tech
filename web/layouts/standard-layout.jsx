@@ -1,4 +1,5 @@
 import React from 'react'
+import InitScript from '../init-script.jsx'
 
 export default class StandardLayout extends React.Component {
   render() {
@@ -12,9 +13,21 @@ export default class StandardLayout extends React.Component {
       </head>
 
       <body>
-        {this.props.elements.main}
+        {this.props.children}
+
+        {this.scriptTags()}
+
+        <InitScript assets={this.props.assets}
+          componentModuleName={this.props.componentModuleName}>
+        </InitScript>
       </body>
       </html>
     )
+  }
+
+  scriptTags() {
+    return (this.props.assets.scripts || []).map((scriptLink) => {
+      return <script src={scriptLink} key={scriptLink}></script>
+    })
   }
 }

@@ -1,16 +1,14 @@
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
-import StandardLayout from '../web/layouts/standard-layout.jsx'
+import requireFresh from '../require-fresh.js'
 
 export default function renderFileAsPage(filepath, assets) {
-  const Component = require(filepath).default
-  const pageConfig = Component.PAGE_CONFIG || {}
-  const component = React.createElement(Component, {})
-  const layout = layoutElementForConfig(pageConfig, assets, {
-    main: component,
+  const Component = requireFresh(filepath).default
+  const element = React.createElement(Component, {
+    assets: assets,
   })
 
-  return renderComponentAsPage(layout)
+  return renderComponentAsPage(element)
 }
 
 function renderComponentAsPage(component) {
@@ -21,14 +19,4 @@ function renderComponentAsPage(component) {
 
 function renderComponentAsHTML(component) {
   return `<!DOCTYPE html>${ReactDOMServer.renderToString(component)}`
-}
-
-function layoutElementForConfig(pageConfig, assets, elements) {
-  return React.createElement(pageConfig.layout || StandardLayout, {
-    title: pageConfig.title,
-    assets: assets,
-    elements: {
-      main: elements.main,
-    },
-  })
 }
