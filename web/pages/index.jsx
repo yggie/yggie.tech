@@ -8,8 +8,7 @@ export default class Index extends preact.Component {
 
   render() {
     return (
-      <StandardLayout assets={this.props.assets}
-        initScript={this.props.initScript}>
+      <StandardLayout title="The Index Page">
         <main>
           <h1>Hello World!</h1>
 

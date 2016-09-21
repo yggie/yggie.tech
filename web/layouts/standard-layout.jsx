@@ -1,25 +1,16 @@
 import preact from 'preact'
-import InitScript from '../init-script.jsx'
+import PageMeta from '../page-meta.jsx'
 
 export default class StandardLayout extends preact.Component {
   render() {
+    if (this.props.children.length !== 1) {
+      throw new Error('Exactly one component must be specified as the child!')
+    }
+
     return (
-      <html lang="en">
-      <head>
-        <meta charSet="UTF-8"/>
-        <title>{this.props.title || 'Page Title'}</title>
-
-        <link rel="stylesheet" href={this.props.assets.globalStylesheet}/>
-      </head>
-
-      <body>
-        {this.props.children}
-
-        {this.scriptTags()}
-
-        {this.props.initScript}
-      </body>
-      </html>
+      <PageMeta {...this.props}>
+        {this.props.children[0]}
+      </PageMeta>
     )
   }
 

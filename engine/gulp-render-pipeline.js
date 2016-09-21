@@ -1,7 +1,7 @@
 import path from 'path'
 import md5File from 'md5-file'
 import through from 'through2'
-import renderFileAsPage from './render-file-as-page.js'
+import renderFileAsPage from './render-file-as-page.jsx'
 
 export default function renderPipeline(inputOptions) {
   const options = {
