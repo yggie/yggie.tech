@@ -1,7 +1,7 @@
-import React from 'react'
+import preact from 'preact'
 import InitScript from '../init-script.jsx'
 
-export default class StandardLayout extends React.Component {
+export default class StandardLayout extends preact.Component {
   render() {
     return (
       <html lang="en">
@@ -17,9 +17,7 @@ export default class StandardLayout extends React.Component {
 
         {this.scriptTags()}
 
-        <InitScript assets={this.props.assets}
-          componentModuleName={this.props.componentModuleName}>
-        </InitScript>
+        {this.props.initScript}
       </body>
       </html>
     )

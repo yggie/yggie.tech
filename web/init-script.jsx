@@ -1,6 +1,6 @@
-import React from 'react'
+import preact from 'preact'
 
-export default class InitScript extends React.Component {
+export default class InitScript extends preact.Component {
   scriptString() {
     const props = {
       assets: this.props.assets,
@@ -20,8 +20,8 @@ export default class InitScript extends React.Component {
     }
 
     return {
-      __html: `requirejs.config(${JSON.stringify(config)});require(['react', 'react-dom', '${componentModuleName}'],function(React, ReactDOM, Component) {
-        ReactDOM.render(React.createElement(Component.default, ${JSON.stringify(props)}),document);
+      __html: `requirejs.config(${JSON.stringify(config)});require(['preact', '${componentModuleName}'],function(preact, Component) {
+        preact.render(preact.h(Component.default, ${JSON.stringify(props)}),document,document);
       })`,
     }
   }

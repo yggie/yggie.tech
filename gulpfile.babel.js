@@ -1,9 +1,7 @@
+import fs from 'fs'
 import gulp from 'gulp'
 import sass from 'gulp-sass'
 import babel from 'gulp-babel'
-import React from 'react'
-import ReactDOM from 'react-dom'
-import requirejs from 'requirejs'
 import webserver from 'gulp-webserver'
 import sourcemaps from 'gulp-sourcemaps'
 import requireFresh from './require-fresh.js'
@@ -42,14 +40,16 @@ gulp.task('dev-compile-scss', () => {
 gulp.task('dev-compile-jsx', () => {
   const normalizeAMDModules =
     requireFresh('./engine/gulp-normalize-amd-modules.js').default
+  /* eslint-disable no-sync */
+  const babelConfig = JSON.parse(fs.readFileSync('./.babelrc').toString())
+  /* eslint-enable no-sync */
 
   return gulp.src(`${WEB_DIR}/**/*.{js,jsx}`)
     .pipe(sourcemaps.init())
     .pipe(babel({
-      presets: ['es2015'],
+      ...babelConfig,
       plugins: [
-        ['transform-react-jsx', {}],
-        ['transform-object-rest-spread', {}],
+        ...babelConfig.plugins,
         ['transform-es2015-modules-amd', {}],
       ],
     }))
@@ -64,13 +64,12 @@ gulp.task('dev-render-pages', ['dev-compile-jsx', 'dev-compile-scss'], () => {
 
   return gulp.src(`${PAGES_DIR}/**/*.jsx`)
     .pipe(renderPipeline({
-      baseDir: PAGES_DIR,
+      webDir: WEB_DIR,
       buildDir: BUILD_DIR,
       cdnPaths: {
         /* eslint-disable max-len */
-        'react': `https://npmcdn.com/react@${React.version}/dist/react.js`,
-        'react-dom': `https://npmcdn.com/react-dom@${ReactDOM.version}/dist/react-dom.js`,
-        'requirejs': `https://cdnjs.cloudflare.com/ajax/libs/require.js/${requirejs.version}/require.js`,
+        'preact': `https://cdnjs.cloudflare.com/ajax/libs/preact/${require('preact/package').version}/preact.js`,
+        'requirejs': `https://cdnjs.cloudflare.com/ajax/libs/require.js/${require('requirejs').version}/require.js`,
         /* eslint-enable max-len */
       },
       globalStylesheet: 'app.css',

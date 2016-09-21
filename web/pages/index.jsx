@@ -1,9 +1,7 @@
-import React from 'react'
+import preact from 'preact'
 import StandardLayout from '../layouts/standard-layout.jsx'
 
-const MODULE_NAME = 'pages/index'
-
-export default class Index extends React.Component {
+export default class Index extends preact.Component {
   onClickBigBadButton() {
     alert('The big bad button has been clicked')
   }
@@ -11,7 +9,7 @@ export default class Index extends React.Component {
   render() {
     return (
       <StandardLayout assets={this.props.assets}
-        componentModuleName={MODULE_NAME}>
+        initScript={this.props.initScript}>
         <main>
           <h1>Hello World!</h1>
 

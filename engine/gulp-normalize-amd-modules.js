@@ -24,6 +24,7 @@ export default function gulpNormalizeAMDModules() {
           depStringWithoutQuotes,
         )
 
+        // TODO combine this with the render file as page somehow?
         const depModuleName = path.relative(file.base, depPath)
           .replace(path.extname(depPath), '')
 

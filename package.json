@@ -1,7 +1,7 @@
 {
   "name": "upgraded-octo-goggles",
   "version": "0.0.1",
-  "description": "An experimental and extensible React-based static site",
+  "description": "An experimental and extensible virtual DOM-based static site",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -29,8 +29,8 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-webserver": "^0.9.1",
     "md5-file": "^3.1.1",
-    "react": "^15.3.0",
-    "react-dom": "^15.3.0",
+    "preact": "^6.0.2",
+    "preact-render-to-string": "^3.1.1",
     "requirejs": "^2.2.0",
     "through2": "^2.0.1"
   }
