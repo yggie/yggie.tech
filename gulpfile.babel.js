@@ -2,6 +2,7 @@ import fs from 'fs'
 import gulp from 'gulp'
 import sass from 'gulp-sass'
 import babel from 'gulp-babel'
+import plumber from 'gulp-plumber'
 import webserver from 'gulp-webserver'
 import sourcemaps from 'gulp-sourcemaps'
 import requireFresh from './require-fresh.js'
@@ -33,6 +34,7 @@ gulp.task('dev-server', ['dev-render-pages'], () => {
 
 gulp.task('dev-compile-scss', () => {
   return gulp.src(`${STYLESHEET_DIR}/app.scss`)
+    .pipe(plumber())
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest(BUILD_DIR))
 })
@@ -63,6 +65,7 @@ gulp.task('dev-render-pages', ['dev-compile-jsx', 'dev-compile-scss'], () => {
     requireFresh('./engine/gulp-render-pipeline.js').default
 
   return gulp.src(`${PAGES_DIR}/**/*.jsx`)
+    .pipe(plumber())
     .pipe(renderPipeline({
       webDir: WEB_DIR,
       buildDir: BUILD_DIR,
