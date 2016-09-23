@@ -8,7 +8,7 @@ import sourcemaps from 'gulp-sourcemaps'
 import requireFresh from './require-fresh.js'
 
 const WEB_DIR = 'web'
-const BUILD_DIR = 'build'
+const BUILD_DIR = '_build'
 const PAGES_DIR = `${WEB_DIR}/pages`
 const ENGINE_DIR = 'engine'
 const BUILD_JS_DIR = `${BUILD_DIR}/js`
@@ -46,7 +46,10 @@ gulp.task('dev-compile-jsx', () => {
   const babelConfig = JSON.parse(fs.readFileSync('./.babelrc').toString())
   /* eslint-enable no-sync */
 
-  return gulp.src(`${WEB_DIR}/**/*.{js,jsx}`)
+  return gulp.src([
+    `${WEB_DIR}/**/*.{js,jsx}`,
+    `!${WEB_DIR}/page-template.jsx`,
+  ])
     .pipe(sourcemaps.init())
     .pipe(babel({
       ...babelConfig,
