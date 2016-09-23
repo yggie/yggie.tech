@@ -2,7 +2,7 @@ import path from 'path'
 import preact from 'preact'
 import preactRenderToString from 'preact-render-to-string'
 
-import PageTemplate from '../web/page-template.jsx'
+import PageTemplate from '../web/server-only/page-template.jsx'
 import requireFresh from '../require-fresh.js'
 
 export default function renderFileAsPage(filepath, assets, webDir) {

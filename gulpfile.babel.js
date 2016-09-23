@@ -12,7 +12,8 @@ const BUILD_DIR = '_build'
 const PAGES_DIR = `${WEB_DIR}/pages`
 const ENGINE_DIR = 'engine'
 const BUILD_JS_DIR = `${BUILD_DIR}/js`
-const STYLESHEET_DIR = `${WEB_DIR}/stylesheets`
+const STYLESHEET_DIR = `${WEB_DIR}/global-stylesheets`
+const SERVER_ONLY_DIR = `${WEB_DIR}/server-only`
 
 gulp.task('default', ['watch'])
 
@@ -48,7 +49,7 @@ gulp.task('dev-compile-jsx', () => {
 
   return gulp.src([
     `${WEB_DIR}/**/*.{js,jsx}`,
-    `!${WEB_DIR}/page-template.jsx`,
+    `!${SERVER_ONLY_DIR}/**/*`,
   ])
     .pipe(sourcemaps.init())
     .pipe(babel({

@@ -30,17 +30,10 @@ export default function renderPipeline(inputOptions) {
 }
 
 function buildAssetsObject(options) {
-  const filteredCdnPaths = Object.keys(options.cdnPaths).filter((key) => {
-    return key !== 'requirejs'
-  }).reduce((acc, key) => {
-    acc[key] = options.cdnPaths[key]
-
-    return acc
-  }, {})
 
   return {
     scripts: [options.cdnPaths.requirejs],
-    cdnPaths: filteredCdnPaths,
+    cdnPaths: options.cdnPaths,
     globalStylesheet: cacheBustedPath(
       options.globalStylesheet,
       options.buildDir,
