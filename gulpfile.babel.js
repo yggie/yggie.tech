@@ -36,7 +36,9 @@ gulp.task('dev-server', ['dev-render-pages'], () => {
 gulp.task('dev-compile-scss', () => {
   return gulp.src(`${STYLESHEET_DIR}/app.scss`)
     .pipe(plumber())
+    .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(BUILD_DIR))
 })
 
