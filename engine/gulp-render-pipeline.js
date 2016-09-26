@@ -1,28 +1,38 @@
 import path from 'path'
+import VinylFile from 'vinyl'
 import md5File from 'md5-file'
 import through from 'through2'
 import renderFileAsPage from './render-file-as-page.jsx'
 
 export default function renderPipeline(inputOptions) {
   const options = {
+    root: 'index',
     ...inputOptions,
     cdnPaths: parseCdnDependencies(inputOptions),
   }
   const assets = buildAssetsObject(options)
 
-  return through.obj((file, enc, callback) => {
+  return through.obj(function render(file, enc, callback) {
     try {
       const page = renderFileAsPage(file.path, assets, options.webDir)
 
       const extname = path.extname(file.path)
       const basename = path.basename(file.path, extname)
-      const dirname = path.dirname(file.path)
+      const baseDirectory = path.dirname(file.path)
+      const isErrorPage = basename.match(/^\d/)
+      const shouldBeInRoot = basename === options.root || isErrorPage
+      const filename = isErrorPage ? `${basename}.html` : 'index.html'
+      const directory = shouldBeInRoot ?
+        baseDirectory :
+        path.join(baseDirectory, basename)
 
-      file.path = path.join(dirname, `${basename}.html`)
+      this.push(new VinylFile({
+        base: baseDirectory,
+        path: path.join(directory, filename),
+        contents: new Buffer(page.html),
+      }))
 
-      file.contents = new Buffer(page.html)
-
-      callback(null, file)
+      callback(null)
     } catch (e) {
       callback(e)
     }

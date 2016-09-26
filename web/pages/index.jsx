@@ -2,10 +2,6 @@ import preact from 'preact'
 import StandardLayout from '../layouts/standard-layout.jsx'
 
 export default class Index extends preact.Component {
-  onClickBigBadButton() {
-    alert('The big bad button has been clicked')
-  }
-
   render() {
     return (
       <StandardLayout title="The Index Page">
@@ -14,9 +10,13 @@ export default class Index extends preact.Component {
 
           <p>This is a sample page with some soon to be added content</p>
 
-          <button onClick={this.onClickBigBadButton}>
-            Big Bad Button
-          </button>
+          <ul>
+            <li><a href="who">Who</a></li>
+            <li><a href="what">What</a></li>
+            <li><a href="where">Where</a></li>
+            <li><a href="when">When</a></li>
+            <li><a href="why">Why</a></li>
+          </ul>
         </main>
       </StandardLayout>
     )

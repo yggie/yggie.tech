@@ -21,7 +21,7 @@ export default class PageTemplate extends preact.Component {
         <meta charSet="UTF-8"/>
         <title>{pageMeta.title}</title>
 
-        <link rel="stylesheet" href={this.props.assets.globalStylesheet}/>
+        <link rel="stylesheet" href={`/${this.props.assets.globalStylesheet}`}/>
       </head>
 
       <body>
@@ -54,7 +54,7 @@ export default class PageTemplate extends preact.Component {
 
     const config = {
       paths: paths,
-      baseUrl: 'js',
+      baseUrl: '/js',
     }
 
     const minified = uglify.minify(`

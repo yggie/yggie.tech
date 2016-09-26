@@ -1,5 +1,5 @@
 import preact from 'preact'
-import PageMeta from '../page-meta.jsx'
+import Page from '../page.jsx'
 
 export default class StandardLayout extends preact.Component {
   render() {
@@ -8,9 +8,9 @@ export default class StandardLayout extends preact.Component {
     }
 
     return (
-      <PageMeta {...this.props}>
+      <Page {...this.props}>
         {this.props.children[0]}
-      </PageMeta>
+      </Page>
     )
   }
 
