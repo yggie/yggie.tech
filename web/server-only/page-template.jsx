@@ -9,24 +9,26 @@ export default class PageTemplate extends preact.Component {
       throw new Error('Exactly one component must be specified as the child!')
     }
 
-    // TODO this makes a huge assumption that the child is always wrapped up in
-    // the PageMeta tag or some layout that uses PageMeta internally
-    const Node = this.props.children[0].nodeName
-    const pageMeta = new Node().render().attributes
+    const { assets, children } = this.props
+    const { globalStylesheet } = assets
 
-    // TODO get the title from the child somehow?
+    // assumes that the required attributes are passed in the props, as required
+    // by the Page component
+    const Node = children[0].nodeName
+    const { title } = new Node().render().attributes
+
     return (
       <html lang="en">
       <head>
         <meta charSet="UTF-8"/>
-        <title>{pageMeta.title}</title>
+        <title>{title}</title>
 
-        <link rel="stylesheet" href={`/${this.props.assets.globalStylesheet}`}/>
+        <link rel="stylesheet" href={`/${globalStylesheet}`}/>
       </head>
 
       <body>
         <div id={ROOT_ID}>
-          {this.props.children}
+          {children}
         </div>
 
         <script dangerouslySetInnerHTML={this.scriptString()}></script>
@@ -36,8 +38,8 @@ export default class PageTemplate extends preact.Component {
   }
 
   scriptString() {
-    const pageModule = this.props.pageModule
-    const cdnPaths = this.props.assets.cdnPaths
+    const { pageModule, assets, scriptPaths } = this.props
+    const { cdnPaths } = assets
     const filteredCdnPaths = Object.keys(cdnPaths).filter((key) => {
       return key !== 'requirejs'
     }).reduce((acc, key) => {
@@ -52,9 +54,9 @@ export default class PageTemplate extends preact.Component {
       return acc
     }, {})
 
-    const config = {
+    const requireJsConfig = {
       paths: paths,
-      baseUrl: '/js',
+      baseUrl: scriptPaths,
     }
 
     const minified = uglify.minify(`
@@ -79,7 +81,7 @@ export default class PageTemplate extends preact.Component {
         }
 
         function onLoadScript() {
-          requirejs.config(${JSON.stringify(config)});
+          requirejs.config(${JSON.stringify(requireJsConfig)});
 
           require(['preact', '${pageModule}'], function(preact, Component) {
             var root = document.getElementById('${ROOT_ID}');

@@ -1,18 +1,21 @@
-import path from 'path'
 import preact from 'preact'
 import preactRenderToString from 'preact-render-to-string'
 
+import moduleName from './module-name.js'
 import PageTemplate from '../web/server-only/page-template.jsx'
 import requireFresh from '../require-fresh.js'
 
-export default function renderFileAsPage(filepath, assets, webDir) {
+export default function renderFileAsPage(filepath, assets, { webDir, scriptPaths }) {
   const Component = requireFresh(filepath).default
-  // TODO combine this with the gulp normalize somehow?
-  const moduleName = path.relative(webDir, filepath)
-    .replace(path.extname(filepath), '')
+  const fileModuleName = moduleName({
+    base: webDir,
+    filepath: filepath,
+  })
 
   return renderComponentAsPage(
-    <PageTemplate assets={assets} pageModule={moduleName}>
+    <PageTemplate assets={assets}
+        pageModule={fileModuleName}
+        scriptPaths={scriptPaths}>
       <Component></Component>
     </PageTemplate>
   )

@@ -1,5 +1,5 @@
 import preact from 'preact'
-import StandardLayout from '../layouts/standard-layout.jsx'
+import StandardLayout from '../app/layouts/standard-layout.jsx'
 
 export default class Index extends preact.Component {
   render() {
@@ -16,6 +16,8 @@ export default class Index extends preact.Component {
             <li><a href="where">Where</a></li>
             <li><a href="when">When</a></li>
             <li><a href="why">Why</a></li>
+            <li><a href="https://twitter.com/">Twitter</a></li>
+            <li><a target="_blank" href="https://www.facebook.com/">Facebook</a></li>
           </ul>
         </main>
       </StandardLayout>

@@ -1,5 +1,5 @@
 import preact from 'preact'
-import StandardLayout from '../layouts/standard-layout.jsx'
+import StandardLayout from '../app/layouts/standard-layout.jsx'
 
 export default class Why extends preact.Component {
   render() {

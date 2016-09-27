@@ -16,7 +16,7 @@ export default class Page extends preact.Component {
   componentDidMount() {
     this.updatePageMeta(this.props)
 
-    mountRouter()
+    mountRouter(this)
   }
 
   updatePageMeta(props) {
@@ -24,8 +24,10 @@ export default class Page extends preact.Component {
   }
 }
 
+let pageNode = null
 let routerMounted = false
-function mountRouter() {
+function mountRouter(newPageNode) {
+  pageNode = newPageNode
   if (routerMounted) {
     return
   }
@@ -60,22 +62,22 @@ function onClickEvent(event) {
 
 function loadPage(pageModule, url, skipPushState) {
   require([pageModule], (Component) => {
-    const root = document.getElementById('main-view')
-    preact.render(preact.h(Component.default), root, root.children[0])
-
-    if (!skipPushState) {
-      window.history.pushState(null, pageModule, url)
-    }
+    renderPage(Component, pageModule, url, skipPushState)
   }, () => {
     require(['pages/404'], (ErrorPage) => {
-      const root = document.getElementById('main-view')
-      preact.render(preact.h(ErrorPage.default), root, root.children[0])
-
-      if (!skipPushState) {
-        window.history.pushState(null, pageModule, url)
-      }
+      renderPage(ErrorPage, pageModule, url, skipPushState)
     })
   })
+}
+
+function renderPage(Component, pageModule, url, skipPushState) {
+  const pageElement = pageNode.base
+  const root = pageElement.parentNode
+  preact.render(preact.h(Component.default), root, pageElement)
+
+  if (!skipPushState) {
+    window.history.pushState(null, pageModule, url)
+  }
 }
 
 function pageModuleName(href) {

@@ -1,5 +1,6 @@
 import path from 'path'
 import through from 'through2'
+import moduleName from './module-name.js'
 
 const AMD_DEPS_REGEX = /^define\(([^\[]*)\[([^\]]*)\]/
 const MODULE_NAMES_REGEX = /(\'(?:\.\/|\.\.\/)[^']+\'|\"(?:\.\/|\.\.\/)[^"]+\")/
@@ -7,8 +8,10 @@ const LOCAL_MODULE_REGEX = /^['"]\./
 
 export default function gulpNormalizeAMDModules() {
   return through.obj((file, enc, callback) => {
-    const moduleName = path.relative(file.base, file.path)
-      .replace(path.extname(file.path), '')
+    const fileModuleName = moduleName({
+      base: file.base,
+      filepath: file.path,
+    })
     let contents = String(file.contents)
 
     let depsAsString = contents.match(AMD_DEPS_REGEX)[2]
@@ -24,9 +27,10 @@ export default function gulpNormalizeAMDModules() {
           depStringWithoutQuotes,
         )
 
-        // TODO combine this with the render file as page somehow?
-        const depModuleName = path.relative(file.base, depPath)
-          .replace(path.extname(depPath), '')
+        const depModuleName = moduleName({
+          base: file.base,
+          filepath: depPath,
+        })
 
         return JSON.stringify(depModuleName)
       } else {
@@ -37,7 +41,7 @@ export default function gulpNormalizeAMDModules() {
     contents = contents.replace(AMD_DEPS_REGEX, (fullMatch, partBeforeDeps) => {
       return `define(${partBeforeDeps}[${depsAsString}]`
     })
-    contents = contents.replace(/^define\(/, `define("${moduleName}",`)
+    contents = contents.replace(/^define\(/, `define("${fileModuleName}",`)
 
     file.contents = new Buffer(contents)
 

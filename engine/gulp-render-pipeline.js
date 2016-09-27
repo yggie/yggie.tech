@@ -14,7 +14,7 @@ export default function renderPipeline(inputOptions) {
 
   return through.obj(function render(file, enc, callback) {
     try {
-      const page = renderFileAsPage(file.path, assets, options.webDir)
+      const page = renderFileAsPage(file.path, assets, options)
 
       const extname = path.extname(file.path)
       const basename = path.basename(file.path, extname)
