@@ -2,7 +2,7 @@ import preact from 'preact'
 import uglify from 'uglify-js'
 import { ROOT_ID } from './app/page.jsx'
 
-export default class PageTemplate extends preact.Component {
+export default class ServerRenderingTemplate extends preact.Component {
   render() {
     if (this.props.children.length !== 1) {
       throw new Error('Exactly one component must be specified as the child!')

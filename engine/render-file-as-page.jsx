@@ -2,7 +2,7 @@ import preact from 'preact'
 import preactRenderToString from 'preact-render-to-string'
 
 import moduleName from './module-name.js'
-import PageTemplate from '../web/page-template.jsx'
+import ServerRenderingTemplate from '../web/server-rendering-template.jsx'
 import requireFresh from '../require-fresh.js'
 
 export default function renderFileAsPage(filepath, assets, { appDir, scriptPaths }) {
@@ -13,11 +13,11 @@ export default function renderFileAsPage(filepath, assets, { appDir, scriptPaths
   })
 
   return renderComponentAsPage(
-    <PageTemplate assets={assets}
+    <ServerRenderingTemplate assets={assets}
         pageModule={fileModuleName}
         scriptPaths={scriptPaths}>
       <Component></Component>
-    </PageTemplate>
+    </ServerRenderingTemplate>
   )
 }
 
