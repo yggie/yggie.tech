@@ -3,13 +3,10 @@ import Page from '../page.jsx'
 
 export default class StandardLayout extends preact.Component {
   render() {
-    if (this.props.children.length !== 1) {
-      throw new Error('Exactly one component must be specified as the child!')
-    }
-
     return (
       <Page {...this.props}>
-        {this.props.children[0]}
+        <main>{this.props.children}</main>
+        <footer>This is the footer</footer>
       </Page>
     )
   }

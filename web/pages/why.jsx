@@ -4,7 +4,7 @@ import StandardLayout from '../app/layouts/standard-layout.jsx'
 export default class Why extends preact.Component {
   render() {
     return (
-      <StandardLayout title="Why">
+      <StandardLayout pageTitle="Why">
         <main>
           <h1>Why</h1>
 

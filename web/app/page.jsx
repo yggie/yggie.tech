@@ -1,14 +1,15 @@
 import preact from 'preact'
 
 let router = null // instantiated later as a singleton
+export const ROOT_ID = 'root-view'
 
 export default class Page extends preact.Component {
   render() {
-    if (this.props.children.length !== 1) {
-      throw new Error('Exactly one component must be specified as the child!')
-    }
-
-    return this.props.children[0]
+    return (
+      <div id={ROOT_ID}>
+        {this.props.children}
+      </div>
+    )
   }
 
   componentWillReceiveProps(nextProps) {
@@ -22,7 +23,11 @@ export default class Page extends preact.Component {
   }
 
   updatePageMeta(props) {
-    document.head.querySelector('title').innerText = props.title || 'Page Title'
+    select('title').innerText = props.pageTitle || 'Page Title'
+
+    function select(selector) {
+      return document.head.querySelector(selector)
+    }
   }
 }
 
@@ -47,7 +52,7 @@ class Router {
     }
 
     const { history, location } = window
-    const { href } = location
+    const { href: currentHref } = location
 
     if (document.attachEvent) {
       document.attachEvent('onclick', this.onClickEvent.bind(this))
@@ -55,10 +60,11 @@ class Router {
       document.addEventListener('click', this.onClickEvent.bind(this), false)
     }
 
-    history.replaceState(null, this.pageModuleName(href), href)
+    history.replaceState(null, this.pageModuleName(currentHref), currentHref)
 
     const self = this
     window.onpopstate = function onpopstate() {
+      const { href } = location
       self.loadPage(self.pageModuleName(href), href, true)
     }
   }
@@ -90,9 +96,10 @@ class Router {
 
   renderPage(Component, pageModule, url, skipPushState) {
     const { pageNode } = this
-    const { base: pageElement } = pageNode
-    const root = pageElement.parentNode
-    preact.render(preact.h(Component.default), root, pageElement)
+    const { base: rootElement } = pageNode
+    const rootParent = rootElement.parentNode
+    const vnode = preact.h(Component.default)
+    preact.render(vnode, rootParent, rootElement)
 
     if (!skipPushState) {
       window.history.pushState(null, pageModule, url)

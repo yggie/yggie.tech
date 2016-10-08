@@ -15,8 +15,8 @@ const ASSETS_DIR = `${BUILD_DIR}/assets`
 const ENGINE_DIR = 'engine'
 const BUILD_JS_DIR = `${ASSETS_DIR}/js`
 const BUILD_CSS_DIR = `${ASSETS_DIR}/css`
-const JS_ASSETS_PATH = BUILD_JS_DIR.replace(`${BUILD_DIR}/`, '')
-const CSS_ASSETS_PATH = BUILD_CSS_DIR.replace(`${BUILD_DIR}/`, '')
+const JS_ASSETS_PATH = BUILD_JS_DIR.replace(`${BUILD_DIR}/`, '/')
+const CSS_ASSETS_PATH = BUILD_CSS_DIR.replace(`${BUILD_DIR}/`, '/')
 const STYLESHEET_DIR = `${WEB_DIR}/global-stylesheets`
 const SERVER_ONLY_DIR = `${WEB_DIR}/server-only`
 

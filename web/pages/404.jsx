@@ -4,7 +4,7 @@ import StandardLayout from '../app/layouts/standard-layout.jsx'
 export default class _404 extends preact.Component {
   render() {
     return (
-      <StandardLayout title="Not found">
+      <StandardLayout pageTitle="Not found">
         <main>
           <h1>What you were looking for was not found</h1>
 

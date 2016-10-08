@@ -1,7 +1,6 @@
 import preact from 'preact'
 import uglify from 'uglify-js'
-
-const ROOT_ID = 'main-view'
+import { ROOT_ID } from '../app/page.jsx'
 
 export default class PageTemplate extends preact.Component {
   render() {
@@ -15,21 +14,19 @@ export default class PageTemplate extends preact.Component {
     // assumes that the required attributes are passed in the props, as required
     // by the Page component
     const Node = children[0].nodeName
-    const { title } = new Node().render().attributes
+    const { pageTitle } = new Node().render().attributes
 
     return (
       <html lang="en">
       <head>
         <meta charSet="UTF-8"/>
-        <title>{title}</title>
+        <title>{pageTitle}</title>
 
-        <link rel="stylesheet" href={`/${globalStylesheet}`}/>
+        <link rel="stylesheet" href={`${globalStylesheet}`}/>
       </head>
 
       <body>
-        <div id={ROOT_ID}>
-          {children}
-        </div>
+        {children}
 
         <script dangerouslySetInnerHTML={this.scriptString()}></script>
       </body>
@@ -85,7 +82,7 @@ export default class PageTemplate extends preact.Component {
 
           require(['preact', '${pageModule}'], function(preact, Component) {
             var root = document.getElementById('${ROOT_ID}');
-            preact.render(preact.h(Component.default), root, root.children[0]);
+            preact.render(preact.h(Component.default), document.body, root);
           });
         }
       }).call(this, window, document);`, {

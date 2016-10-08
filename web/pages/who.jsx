@@ -4,7 +4,7 @@ import StandardLayout from '../app/layouts/standard-layout.jsx'
 export default class Who extends preact.Component {
   render() {
     return (
-      <StandardLayout title="Who">
+      <StandardLayout pageTitle="Who">
         <main>
           <h1>Who</h1>
 
