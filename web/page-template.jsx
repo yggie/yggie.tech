@@ -1,6 +1,6 @@
 import preact from 'preact'
 import uglify from 'uglify-js'
-import { ROOT_ID } from '../app/page.jsx'
+import { ROOT_ID } from './app/page.jsx'
 
 export default class PageTemplate extends preact.Component {
   render() {

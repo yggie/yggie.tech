@@ -6,7 +6,7 @@ export const ROOT_ID = 'root-view'
 export default class Page extends preact.Component {
   render() {
     return (
-      <div id={ROOT_ID}>
+      <div id={ROOT_ID} className={this.props.className}>
         {this.props.children}
       </div>
     )
@@ -65,7 +65,7 @@ class Router {
     const self = this
     window.onpopstate = function onpopstate() {
       const { href } = location
-      self.loadPage(self.pageModuleName(href), href, true)
+      self.loadPage(href, true)
     }
   }
 
@@ -78,17 +78,18 @@ class Router {
       if (href.includes(window.location.origin)) {
         event.preventDefault()
 
-        this.loadPage(this.pageModuleName(href), href)
+        this.loadPage(href)
       }
     }
   }
 
-  loadPage(pageModule, url, skipPushState) {
+  loadPage(url, skipPushState) {
+    const pageModule = this.pageModuleName(url)
     const self = this
     require([pageModule], (Component) => {
       self.renderPage(Component, pageModule, url, skipPushState)
     }, () => {
-      require(['pages/404'], (ErrorPage) => {
+      require(['404-page'], (ErrorPage) => {
         self.renderPage(ErrorPage, pageModule, url, skipPushState)
       })
     })
@@ -107,11 +108,10 @@ class Router {
   }
 
   pageModuleName(href) {
-    const moduleName = 'pages/' + href.replace(window.location.origin, '')
-      .replace(/^\//, '')
-      .replace(/\/$/, '')
+    const path = href.replace(window.location.origin, '')
+    const normalizedPath = path.replace(/^\//, '').replace(/\/$/, '')
 
-    return moduleName === 'pages/' ? 'pages/index' : moduleName
+    return normalizedPath.length ? `${normalizedPath}-page` : 'index-page'
   }
 
   isBrowserCompatibleWithRouter() {

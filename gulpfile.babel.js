@@ -9,8 +9,8 @@ import sourcemaps from 'gulp-sourcemaps'
 import requireFresh from './require-fresh.js'
 
 const WEB_DIR = 'web'
+const APP_DIR = `${WEB_DIR}/app`
 const BUILD_DIR = '_build'
-const PAGES_DIR = `${WEB_DIR}/pages`
 const ASSETS_DIR = `${BUILD_DIR}/assets`
 const ENGINE_DIR = 'engine'
 const BUILD_JS_DIR = `${ASSETS_DIR}/js`
@@ -18,7 +18,6 @@ const BUILD_CSS_DIR = `${ASSETS_DIR}/css`
 const JS_ASSETS_PATH = BUILD_JS_DIR.replace(`${BUILD_DIR}/`, '/')
 const CSS_ASSETS_PATH = BUILD_CSS_DIR.replace(`${BUILD_DIR}/`, '/')
 const STYLESHEET_DIR = `${WEB_DIR}/global-stylesheets`
-const SERVER_ONLY_DIR = `${WEB_DIR}/server-only`
 
 gulp.task('default', ['watch'])
 
@@ -55,8 +54,7 @@ gulp.task('compile-jsx', ['clean-js'], () => {
   /* eslint-enable no-sync */
 
   return gulp.src([
-    `${WEB_DIR}/**/*.{js,jsx}`,
-    `!${SERVER_ONLY_DIR}/**/*`,
+    `${APP_DIR}/**/*.{js,jsx}`,
   ])
     .pipe(sourcemaps.init())
     .pipe(babel({
@@ -75,10 +73,10 @@ gulp.task('render-html', ['clean-html', 'compile-jsx', 'compile-scss'], () => {
   const renderPipeline =
     requireFresh('./engine/gulp-render-pipeline.js').default
 
-  return gulp.src(`${PAGES_DIR}/**/*.jsx`)
+  return gulp.src(`${APP_DIR}/**/*-page.jsx`)
     .pipe(plumber())
     .pipe(renderPipeline({
-      webDir: WEB_DIR,
+      appDir: APP_DIR,
       buildDir: BUILD_DIR,
       scriptPaths: JS_ASSETS_PATH,
       cdnPaths: {

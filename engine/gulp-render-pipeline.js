@@ -17,7 +17,7 @@ export default function renderPipeline(inputOptions) {
       const page = renderFileAsPage(file.path, assets, options)
 
       const extname = path.extname(file.path)
-      const basename = path.basename(file.path, extname)
+      const basename = path.basename(file.path, extname).replace(/-page$/, '')
       const baseDirectory = path.dirname(file.path)
       const isErrorPage = basename.match(/^\d/)
       const shouldBeInRoot = basename === options.root || isErrorPage
