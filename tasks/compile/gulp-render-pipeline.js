@@ -27,7 +27,7 @@ export default function renderPipeline(inputOptions) {
         path.join(baseDirectory, basename)
 
       this.push(new VinylFile({
-        base: baseDirectory,
+        base: file.base,
         path: path.join(directory, filename),
         contents: new Buffer(page.html),
       }))

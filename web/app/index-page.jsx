@@ -13,7 +13,7 @@ export default class IndexPage extends preact.Component {
           <ul>
             <li><a href="about">About</a></li>
             <li><a href="talks">Talks</a></li>
-            <li><a href="articles">Articles</a></li>
+            <li><a href="blog">Blog</a></li>
             <li><a href="projects">Projects</a></li>
           </ul>
         </nav>
