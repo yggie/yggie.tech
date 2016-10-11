@@ -1,0 +1,11 @@
+html, body {
+  color: var(--primary-text-color);
+  background-color: var(--background-color);
+  font-size: 36px;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}

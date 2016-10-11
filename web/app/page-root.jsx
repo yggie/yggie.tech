@@ -3,7 +3,7 @@ import preact from 'preact'
 let router = null // instantiated later as a singleton
 export const ROOT_ID = 'root-view'
 
-export default class Page extends preact.Component {
+export default class PageRoot extends preact.Component {
   render() {
     return (
       <div id={ROOT_ID} className={this.props.className}>

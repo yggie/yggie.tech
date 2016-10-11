@@ -1,11 +1,11 @@
 import preact from 'preact'
-import Page from './page.jsx'
+import PageRoot from './page-root.jsx'
 import metadata from './metadata'
 
 export default class BlogPage extends preact.Component {
   render() {
     return (
-      <Page pageTitle="My Blog" className="blog-page">
+      <PageRoot pageTitle="My Blog" className="blog-page">
         <h1>This is the blog page!</h1>
 
         <p>Various links to all those bloggy goodness:</p>
@@ -24,7 +24,7 @@ export default class BlogPage extends preact.Component {
 
         <footer>
         </footer>
-      </Page>
+      </PageRoot>
     )
   }
 

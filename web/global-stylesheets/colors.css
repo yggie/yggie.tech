@@ -1,0 +1,11 @@
+:root {
+  --white: #ffffff;
+  --light-grey: #bdbdbd;
+  --grey: #757575;
+  --black: #333333;
+
+  --primary-text-color: var(--black);
+  --secondary-text-color: var(--grey);
+
+  --background-color: var(--white);
+}

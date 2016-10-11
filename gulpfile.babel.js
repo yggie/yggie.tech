@@ -1,5 +1,5 @@
 import gulp from 'gulp'
-import webserver from 'gulp-webserver'
+import server from 'gulp-server-livereload'
 import CompileTasks from './tasks/compile-tasks.js'
 import PublishTasks from './tasks/publish-tasks.js'
 
@@ -15,14 +15,6 @@ const STYLESHEET_DIR = `${WEB_DIR}/global-stylesheets`
 const PUBLISHED_METADATA_PATH = `${__dirname}/metadata.js`
 
 gulp.task('default', ['server'])
-
-gulp.task('server', ['watch'], () => {
-  return gulp.src(BUILD_DIR)
-    .pipe(webserver({
-      port: 5858,
-      open: false,
-    }))
-})
 
 const compileTasks = new CompileTasks({
   source: {
@@ -50,3 +42,18 @@ const publishTasks = new PublishTasks({
   compileParams: compileTasks.params,
 })
 gulp.task('publish', [publishTasks.default])
+
+gulp.task('server', ['watch'], () => {
+  return gulp.src(BUILD_DIR)
+    .pipe(server({
+      port: 5858,
+      open: false,
+      directoryListing: false,
+      livereload: {
+        enable: true,
+        filter: (filepath, callback) => {
+          callback(filepath.includes(compileTasks.livereloadSignal))
+        },
+      },
+    }))
+})

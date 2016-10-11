@@ -77,7 +77,7 @@ export default function generateMetadata(name, { publish, publishedMetadata }) {
 }
 
 function fetchPublishedBlogEntry(published, subpath) {
-  const repository = published ? published.blog.all : []
+  const repository = published ? published.blogs.all : []
 
   return repository.find((entry) => {
     return entry.subpath === subpath

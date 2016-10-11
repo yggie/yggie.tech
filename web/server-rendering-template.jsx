@@ -1,6 +1,6 @@
 import preact from 'preact'
 import uglify from 'uglify-js'
-import { ROOT_ID } from './app/page.jsx'
+import { ROOT_ID } from './app/page-root.jsx'
 
 export default class ServerRenderingTemplate extends preact.Component {
   render() {
@@ -19,6 +19,7 @@ export default class ServerRenderingTemplate extends preact.Component {
     return (
       <html lang="en">
       <head>
+        <meta name="viewport" content="width=device-width"/>
         <meta charSet="UTF-8"/>
         <title>{pageTitle}</title>
 

@@ -1,26 +1,20 @@
 import preact from 'preact'
-import Page from './page.jsx'
+import PageRoot from './page-root.jsx'
+import SiteHeader from './components/site-header.jsx'
+import SiteFooter from './components/site-footer.jsx'
 
 export default class IndexPage extends preact.Component {
   render() {
     return (
-      <Page pageTitle="Home" className="home-page">
-        <h1>Hello World!</h1>
+      <PageRoot pageTitle="Home">
+        <SiteHeader></SiteHeader>
 
-        <p>This is a sample page with some soon to be added content</p>
+        <main>
+          <h1>Bryan Yap</h1>
+        </main>
 
-        <nav>
-          <ul>
-            <li><a href="about">About</a></li>
-            <li><a href="talks">Talks</a></li>
-            <li><a href="blog">Blog</a></li>
-            <li><a href="projects">Projects</a></li>
-          </ul>
-        </nav>
-
-        <footer>
-        </footer>
-      </Page>
+        <SiteFooter></SiteFooter>
+      </PageRoot>
     )
   }
 }

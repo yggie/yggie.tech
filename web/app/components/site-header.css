@@ -1,0 +1,21 @@
+@import "../../global-stylesheets/layout";
+
+.header {
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin: 0;
+  padding: var(--large-space) var(--mobile-gutter-size) 0 var(--mobile-gutter-size);
+
+  & > li {
+    text-transform: lowercase;
+
+    & + li {
+      margin-left: 1em;
+    }
+  }
+}

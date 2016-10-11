@@ -1,13 +1,13 @@
 import preact from 'preact'
-import Page from '../page.jsx'
+import PageRoot from '../page-root.jsx'
 
 export default class BlogPostLayout extends preact.Component {
   render() {
     return (
-      <Page {...this.props}>
+      <PageRoot {...this.props}>
         <main>{this.props.children}</main>
         <footer>This is the footer</footer>
-      </Page>
+      </PageRoot>
     )
   }
 }
