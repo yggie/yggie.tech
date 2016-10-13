@@ -51,6 +51,7 @@ gulp.task('server', ['watch'], () => {
       directoryListing: false,
       livereload: {
         enable: true,
+        port: 32767,
         filter: (filepath, callback) => {
           callback(filepath.includes(compileTasks.livereloadSignal))
         },
