@@ -1,0 +1,6 @@
+@import "../_config/_layout.css";
+
+.container {
+  margin-left: var(--mobile-gutter-size);
+  margin-right: var(--mobile-gutter-size);
+}

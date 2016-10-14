@@ -1,0 +1,24 @@
+@import "./_config/_colors";
+@import "./_config/_typography.css";
+
+html, body {
+  color: var(--primary-text-color);
+  background-color: var(--background-color);
+  font-family: var(--body-font-family);
+  font-size: 15px;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+}
+
+p {
+  line-height: 1.3em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-align: center;
+}

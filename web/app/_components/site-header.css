@@ -1,4 +1,5 @@
-@import "../../global-stylesheets/layout";
+@import "../_config/_typography";
+@import "../_config/_layout";
 
 .header {
 }
@@ -9,13 +10,13 @@
   flex-direction: row;
   justify-content: flex-end;
   margin: 0;
-  padding: var(--large-space) var(--mobile-gutter-size) 0 var(--mobile-gutter-size);
+  padding: var(--large-space) 0 0 0;
 
   & > li {
     text-transform: lowercase;
 
     & + li {
-      margin-left: 1em;
+      margin-left: var(--medium-word-spacing);
     }
   }
 }

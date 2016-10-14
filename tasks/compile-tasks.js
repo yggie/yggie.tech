@@ -1,5 +1,4 @@
 import fs from 'fs'
-import del from 'del'
 import gulp from 'gulp'
 import path from 'path'
 import hash from 'object-hash'
@@ -13,6 +12,7 @@ import { execSync } from 'child_process'
 import requireFresh from './require-fresh.js'
 
 const NAMESPACE = 'compile'
+const OUTPUT_CSS_NAME = 'app.css'
 
 export default class CompileTasks {
   constructor(params) {
@@ -24,9 +24,6 @@ export default class CompileTasks {
     this.html = `${this.name}:html`
     this.watch = `${this.name}:watch`
     this.metadata = `${this.name}:metadata`
-    this.cleanJs = `${this.name}:clean-js`
-    this.cleanCss = `${this.name}:clean-css`
-    this.cleanHtml = `${this.name}:clean-html`
     this.signalLivereload = `${this.name}:livereload-signal`
     this.default = this.html
     this.params = params
@@ -38,7 +35,7 @@ export default class CompileTasks {
 
       gulp.watch([
         `${source.css.root}/**/*.css`,
-        `${source.js.web}/**/*.{css,js,jsx}`,
+        `${source.js.web}/**/*.{js,jsx}`,
         `${source.js.tasks}/**/*.{js,jsx}`,
         // apparently order matters, keep the blacklist at the bottom!
         `!${source.js.root}/${metaname}.js`,
@@ -50,7 +47,7 @@ export default class CompileTasks {
       execSync(`touch ${output.root}/${livereloadSignal}`)
     })
 
-    gulp.task(this.html, [this.cleanHtml, this.jsx], () => {
+    gulp.task(this.html, [this.jsx], () => {
       const renderPipeline =
         requireFresh('./compile/gulp-render-pipeline.js').default
 
@@ -69,7 +66,7 @@ export default class CompileTasks {
             'requirejs': `https://cdnjs.cloudflare.com/ajax/libs/require.js/${require('requirejs').version}/require.js`,
             /* eslint-enable max-len */
           },
-          globalStylesheet: `${stylesheetPath}/app.css`,
+          globalStylesheet: `${stylesheetPath}/${OUTPUT_CSS_NAME}`,
         }).on('error', function onError() {
           console.log.call(console.log, arguments)
           this.emit('end')
@@ -77,10 +74,10 @@ export default class CompileTasks {
         .pipe(gulp.dest(output.root))
     })
 
-    gulp.task(this.css, [this.cleanCss], () => {
+    gulp.task(this.css, () => {
       return gulp.src([
-        `${source.css.root}/app.css`,
-        `${source.js.root}/**/*.css`,
+        `${source.css.root}/**/*.css`,
+        `!${source.css.root}/**/_*.css`,
       ])
         .pipe(plumber())
         .pipe(sourcemaps.init())
@@ -88,14 +85,16 @@ export default class CompileTasks {
           require('postcss-import')(),
           require('postcss-modules')({
             getJSON(cssFilename, json) {
-              if (cssFilename.includes('app.css')) {
+              if (cssFilename.includes('global.css')) {
                 return
               }
 
               const relativeToRoot = path.relative(source.js.root, cssFilename)
               const filename = path.join(output.js, `${relativeToRoot}.json`)
+              const directory = path.dirname(filename)
 
               /* eslint-disable no-sync */
+              execSync(`mkdir -p ${directory}`)
               fs.writeFileSync(filename, JSON.stringify(json))
               /* eslint-enable no-sync */
             },
@@ -106,7 +105,7 @@ export default class CompileTasks {
           }),
           require('postcss-browser-reporter')(),
         ])))
-        .pipe(concat('app.css'))
+        .pipe(concat(OUTPUT_CSS_NAME))
         .pipe(postcss(compact([
           require('css-mqpacker')(),
           ifpublish(require('cssnano')()),
@@ -125,7 +124,7 @@ export default class CompileTasks {
       }
     })
 
-    gulp.task(this.jsx, [this.cleanJs, this.css, this.metadata], () => {
+    gulp.task(this.jsx, [this.css, this.metadata], () => {
       const normalizeAMDModules =
         requireFresh('./compile/gulp-normalize-amd-modules.js').default
       /* eslint-disable no-sync */
@@ -147,7 +146,7 @@ export default class CompileTasks {
         .pipe(gulp.dest(output.js))
     })
 
-    gulp.task(this.metadata, [], () => {
+    gulp.task(this.metadata, [this.css], () => {
       const generateMetadata =
         requireFresh('./compile/generate-metadata.js').default
       const directory = path.dirname(source.publishedMetadata)
@@ -162,24 +161,6 @@ export default class CompileTasks {
         }))
         .pipe(gulp.dest(source.js.root))
         .pipe(gulpif(publish, gulp.dest(directory)))
-    })
-
-    gulp.task(this.cleanCss, () => {
-      return del([
-        `${output.css}/**/*.{css,map}`,
-      ])
-    })
-
-    gulp.task(this.cleanJs, () => {
-      return del([
-        `${output.js}/**/*.{js,map}`,
-      ])
-    })
-
-    gulp.task(this.cleanHtml, () => {
-      return del([
-        `${output.root}/**/*.html`,
-      ])
     })
   }
 }

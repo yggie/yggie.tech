@@ -4,6 +4,31 @@ import { ROOT_ID } from './app/page-root.jsx'
 
 export default class ServerRenderingTemplate extends preact.Component {
   render() {
+    const { children, pageTitle, globalStylesheet } = this.initializePage()
+
+    return (
+      /* eslint-disable max-len */
+      <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta charSet="UTF-8"/>
+        <title>{pageTitle}</title>
+
+        <link href="https://fonts.googleapis.com/css?family=Rubik:300" rel="stylesheet"/>
+        <link href={`${globalStylesheet}`} rel="stylesheet"/>
+      </head>
+
+      <body>
+        {children}
+
+        <script dangerouslySetInnerHTML={this.scriptString()}></script>
+      </body>
+      </html>
+      /* eslint-enable max-len */
+    )
+  }
+
+  initializePage() {
     if (this.props.children.length !== 1) {
       throw new Error('Exactly one component must be specified as the child!')
     }
@@ -16,23 +41,7 @@ export default class ServerRenderingTemplate extends preact.Component {
     const Node = children[0].nodeName
     const { pageTitle } = new Node().render().attributes
 
-    return (
-      <html lang="en">
-      <head>
-        <meta name="viewport" content="width=device-width"/>
-        <meta charSet="UTF-8"/>
-        <title>{pageTitle}</title>
-
-        <link rel="stylesheet" href={`${globalStylesheet}`}/>
-      </head>
-
-      <body>
-        {children}
-
-        <script dangerouslySetInnerHTML={this.scriptString()}></script>
-      </body>
-      </html>
-    )
+    return { children, pageTitle, globalStylesheet }
   }
 
   scriptString() {

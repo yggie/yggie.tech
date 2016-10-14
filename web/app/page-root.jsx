@@ -6,7 +6,7 @@ export const ROOT_ID = 'root-view'
 export default class PageRoot extends preact.Component {
   render() {
     return (
-      <div id={ROOT_ID} className={this.props.className}>
+      <div {...this.props} id={ROOT_ID}>
         {this.props.children}
       </div>
     )
