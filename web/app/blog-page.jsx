@@ -1,30 +1,30 @@
 import preact from 'preact'
-import PageRoot from './page-root.jsx'
-import metadata from './metadata'
+import metadata from '@metadata'
+import Container from './_layout/container.jsx'
+import PrimaryLayout from './_components/primary-layout.jsx'
 
 export default class BlogPage extends preact.Component {
   render() {
     return (
-      <PageRoot pageTitle="My Blog" className="blog-page">
-        <h1>This is the blog page!</h1>
+      <PrimaryLayout pageTitle="My Blog" className="blog-page">
+        <Container>
+          <h1>This is the blog page!</h1>
 
-        <p>Various links to all those bloggy goodness:</p>
+          <p>Various links to all those bloggy goodness:</p>
 
-        <ul>
-          {(this.blogPosts.map((entry) => {
-            return (
-              <li>
-                <a href={`/blog/${entry.subpath}`}>
-                  {entry.title}
-                </a>
-              </li>
-            )
-          }))}
-        </ul>
-
-        <footer>
-        </footer>
-      </PageRoot>
+          <ul>
+            {(this.blogPosts.map((entry) => {
+              return (
+                <li>
+                  <a href={`/blog/${entry.subpath}`}>
+                    {entry.title}
+                  </a>
+                </li>
+              )
+            }))}
+          </ul>
+        </Container>
+      </PrimaryLayout>
     )
   }
 

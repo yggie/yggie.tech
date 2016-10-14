@@ -1,6 +1,6 @@
 import preact from 'preact'
 
-export default class SiteFooter extends preact.Component {
+export default class PrimaryFooter extends preact.Component {
   render() {
     return (
       <footer>

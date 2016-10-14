@@ -5,7 +5,8 @@
     ["transform-object-rest-spread", {}],
     ["module-resolver", {
       "alias": {
-        "@cssmodules": "./_build/assets"
+        "@metadata": "./_build/_artifacts/metadata.json",
+        "@cssmodules": "./_build/_artifacts"
       }
     }]
   ]

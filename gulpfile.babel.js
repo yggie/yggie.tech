@@ -13,7 +13,8 @@ const ASSETS_DIR = `${BUILD_DIR}/assets`
 const BUILD_JS_DIR = ASSETS_DIR
 const BUILD_CSS_DIR = ASSETS_DIR
 const STYLESHEET_DIR = APP_DIR
-const PUBLISHED_METADATA_PATH = `${__dirname}/metadata.js`
+const BUILD_ARTIFACTS_DIR = `${BUILD_DIR}/_artifacts`
+const PUBLISHED_METADATA_PATH = `${__dirname}/metadata.json`
 
 gulp.task('default', ['server'])
 
@@ -34,6 +35,7 @@ const compileTasks = new CompileTasks({
     js: BUILD_JS_DIR,
     css: BUILD_CSS_DIR,
     root: BUILD_DIR,
+    artifacts: BUILD_ARTIFACTS_DIR,
   },
 })
 gulp.task('watch', [compileTasks.watch])

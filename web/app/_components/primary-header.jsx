@@ -1,8 +1,8 @@
 import preact from 'preact'
-import css from '@cssmodules/_components/site-header.css.json'
+import css from '@cssmodules/_components/primary-header.css.json'
 import Container from '../_layout/container.jsx'
 
-export default class SiteHeader extends preact.Component {
+export default class PrimaryHeader extends preact.Component {
   render() {
     return (
       <header className={css.header}>

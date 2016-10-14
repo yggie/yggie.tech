@@ -50,10 +50,8 @@ export default function generateMetadata(name, { publish, publishedMetadata }) {
 
     this.push(new VinylFile({
       base: metadataBuffer.base,
-      path: path.join(metadataBuffer.base, `${name}.js`),
-      contents: new Buffer(
-        `export default ${JSON.stringify(metadata, null, 2)}`,
-      ),
+      path: path.join(metadataBuffer.base, `${name}.json`),
+      contents: new Buffer(JSON.stringify(metadata, null, 2)),
     }))
 
     metadataBuffer = null

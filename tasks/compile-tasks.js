@@ -89,8 +89,8 @@ export default class CompileTasks {
                 return
               }
 
-              const relativeToRoot = path.relative(source.js.root, cssFilename)
-              const filename = path.join(output.js, `${relativeToRoot}.json`)
+              const subpath = path.relative(source.js.root, cssFilename)
+              const filename = path.join(output.artifacts, `${subpath}.json`)
               const directory = path.dirname(filename)
 
               /* eslint-disable no-sync */
@@ -159,7 +159,7 @@ export default class CompileTasks {
           publish: publish,
           publishedMetadata: source.publishedMetadata,
         }))
-        .pipe(gulp.dest(source.js.root))
+        .pipe(gulp.dest(output.artifacts))
         .pipe(gulpif(publish, gulp.dest(directory)))
     })
   }
