@@ -11,9 +11,13 @@
   }
 }
 
+.page-title {
+  margin: 0;
+}
+
 .nav-group {
   display: flex;
-  margin: 0;
+  margin: 0 0 var(--layout--large-space) 0;
   flex-direction: row;
 }
 

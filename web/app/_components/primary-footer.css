@@ -48,3 +48,8 @@
     margin-left: var(--layout--medium-space);
   }
 }
+
+.social-icon {
+  width: 25px;
+  height: 25px;
+}

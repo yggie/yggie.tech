@@ -1,3 +1,4 @@
+import fs from 'fs'
 import del from 'del'
 import gulp from 'gulp'
 import server from 'gulp-server-livereload'
@@ -59,6 +60,15 @@ gulp.task('server', ['watch'], () => {
       port: 5858,
       open: false,
       log: 'debug',
+      fallback: '404.html',
+      fallbackLogic: (req, res, fallbackFile) => {
+        if (req.url.match(/\.\w{2,4}$/)) {
+          res.statusCode = 404
+          res.end()
+        } else {
+          fs.createReadStream(fallbackFile).pipe(res)
+        }
+      },
       directoryListing: false,
       livereload: {
         enable: true,

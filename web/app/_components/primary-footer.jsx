@@ -10,18 +10,16 @@ export default class PrimaryFooter extends preact.Component {
           <ul className={styles['social-links-list']}>
             <li>
               <a href="https://github.com/yggie" target="_blank">
-                <img src="/assets/github-social-icon.svg"
-                  width="25"
-                  height="25"
+                <img className={styles['social-icon']}
+                  src="/assets/github-social-icon.svg"
                   alt="github:yggie" />
               </a>
             </li>
 
             <li>
               <a href="https://twitter.com/0xseed" target="_blank">
-                <img src="/assets/twitter-social-icon.svg"
-                  width="25"
-                  height="25"
+                <img className={styles['social-icon']}
+                  src="/assets/twitter-social-icon.svg"
                   alt="twitter:0xseed" />
               </a>
             </li>
@@ -32,7 +30,6 @@ export default class PrimaryFooter extends preact.Component {
           <nav className={styles['nav-group']}>
             <ul className={styles['nav-list']}>
               <li><a href="/">Home</a></li>
-              <li><a href="/about">About</a></li>
               <li><a href="/blog">Blog</a></li>
               <li><a href="/talks">Talks</a></li>
               <li><a href="/projects">Projects</a></li>
