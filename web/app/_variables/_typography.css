@@ -1,0 +1,8 @@
+:root {
+  --typography--body-font-family: 'Muli', sans-serif;
+
+  --typography--small-font-size: 0.75em;
+  --typography--large-font-size: 1.25em;
+
+  --typography--medium-word-spacing: 1.0em;
+}

@@ -1,7 +1,0 @@
-:root {
-  --small-space: 8px;
-  --medium-space: calc(2 * var(--small-space));
-  --large-space: calc(2 * var(--medium-space));
-
-  --mobile-gutter-size: var(--large-space);
-}

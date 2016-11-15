@@ -1,0 +1,9 @@
+:root {
+  --layout--small-space: 8px;
+  --layout--medium-space: calc(2 * var(--layout--small-space));
+  --layout--large-space: calc(2 * var(--layout--medium-space));
+
+  --layout--mobile-gutter-size: var(--layout--large-space);
+
+  --layout--max-page-width: 1080px;
+}

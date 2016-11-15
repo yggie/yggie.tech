@@ -1,13 +1,13 @@
 import preact from 'preact'
 import metadata from '@metadata'
-import Container from './_layout/container.jsx'
 import PrimaryLayout from './_components/primary-layout.jsx'
+import ContentContainer from './_layout/content-container.jsx'
 
 export default class BlogPage extends preact.Component {
   render() {
     return (
       <PrimaryLayout pageTitle="My Blog" className="blog-page">
-        <Container>
+        <ContentContainer>
           <h1>This is the blog page!</h1>
 
           <p>Various links to all those bloggy goodness:</p>
@@ -23,7 +23,7 @@ export default class BlogPage extends preact.Component {
               )
             }))}
           </ul>
-        </Container>
+        </ContentContainer>
       </PrimaryLayout>
     )
   }

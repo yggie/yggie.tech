@@ -1,0 +1,9 @@
+.parent {
+}
+
+.above-footer {
+  min-height: calc(100vh);
+}
+
+.footer {
+}

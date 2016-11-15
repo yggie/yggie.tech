@@ -1,10 +1,15 @@
-@import "./_config/_colors";
-@import "./_config/_typography.css";
+@import "./_variables/_colors";
+@import "./_variables/_typography.css";
+
+* {
+  box-sizing: border-box;
+}
 
 html, body {
-  color: var(--primary-text-color);
-  background-color: var(--background-color);
-  font-family: var(--body-font-family);
+  color: var(--colors--primary-text);
+  background: svg-load("web/app/assets/_inline-only/hexagon-texture.svg", stroke: var(--colors--ultra-light-primary), fill: var(--colors--background));
+  background-position: left; /* works only because the backgrounds are vertically aligned */
+  font-family: var(--typography--body-font-family);
   font-size: 15px;
   margin: 0;
   padding: 0;
@@ -12,6 +17,7 @@ html, body {
 }
 
 a {
+  color: var(--colors--dark-primary);
   text-decoration: none;
 }
 

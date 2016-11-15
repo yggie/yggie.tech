@@ -1,8 +1,8 @@
 import preact from 'preact'
 import PageRoot from './page-root.jsx'
-import Container from './_layout/container.jsx'
 import PrimaryHeader from './_components/primary-header.jsx'
 import PrimaryFooter from './_components/primary-footer.jsx'
+import ContentContainer from './_layout/content-container.jsx'
 
 export default class IndexPage extends preact.Component {
   render() {
@@ -11,7 +11,7 @@ export default class IndexPage extends preact.Component {
         <PrimaryHeader></PrimaryHeader>
 
         <main>
-          <Container>
+          <ContentContainer>
             <h1>H1 Heading</h1>
 
             <p>
@@ -117,7 +117,7 @@ export default class IndexPage extends preact.Component {
 
               abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz
             </p>
-          </Container>
+          </ContentContainer>
         </main>
 
         <PrimaryFooter></PrimaryFooter>

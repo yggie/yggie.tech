@@ -1,21 +1,26 @@
 import preact from 'preact'
-import css from '@cssmodules/_components/primary-header.css.json'
-import Container from '../_layout/container.jsx'
+import styles from '@cssmodules/_components/primary-header.css.json'
+import ContentContainer from '../_layout/content-container.jsx'
 
 export default class PrimaryHeader extends preact.Component {
   render() {
+    const props = this.props
+
     return (
-      <header className={css.header}>
-        <Container>
-          <nav>
-            <ul className={css['nav-list']}>
-              <li><a href="about">About</a></li>
-              <li><a href="blog">Blog</a></li>
-              <li><a href="talks">Talks</a></li>
-              <li><a href="projects">Projects</a></li>
+      <header className={styles.header}>
+        <ContentContainer>
+          <nav className={styles['nav-group']}>
+            <ul className={styles['nav-list']}>
+              <li><a href="/">Home</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/blog">Blog</a></li>
+              <li><a href="/talks">Talks</a></li>
+              <li><a href="/projects">Projects</a></li>
             </ul>
           </nav>
-        </Container>
+
+          <h1>{props.pageTitle}</h1>
+        </ContentContainer>
       </header>
     )
   }

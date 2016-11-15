@@ -1,7 +1,7 @@
 @import "../_variables/_colors";
 @import "../_variables/_layout";
 
-.header {
+.footer {
   color: var(--colors--inverted-primary-text);
   padding: var(--layout--large-space) 0 var(--layout--large-space) 0;
   background-color: var(--colors--inverted-background);
@@ -32,5 +32,19 @@
     & + li {
       margin-left: var(--layout--medium-space);
     }
+  }
+}
+
+.social-links-list {
+  flex: 1;
+  display: flex;
+  list-style: none;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin: 0 0 var(--layout--medium-space) 0;
+  padding: 0;
+
+  & > li + li {
+    margin-left: var(--layout--medium-space);
   }
 }

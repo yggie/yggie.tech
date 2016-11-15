@@ -1,0 +1,8 @@
+@import "../_variables/_layout.css";
+
+.container {
+  margin: auto;
+  max-width: var(--layout--max-page-width);
+  padding-left: var(--layout--mobile-gutter-size);
+  padding-right: var(--layout--mobile-gutter-size);
+}

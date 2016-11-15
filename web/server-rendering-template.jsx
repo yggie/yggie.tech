@@ -14,7 +14,7 @@ export default class ServerRenderingTemplate extends preact.Component {
         <meta charSet="UTF-8"/>
         <title>{pageTitle}</title>
 
-        <link href="https://fonts.googleapis.com/css?family=Rubik:300" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet"/>
         <link href={`${globalStylesheet}`} rel="stylesheet"/>
       </head>
 

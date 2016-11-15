@@ -18,12 +18,15 @@ export default class CompileTasks {
   constructor(params) {
     const { publish, source, output } = params
 
+    const staticAssetExtensions = 'svg'
+
     this.name = `${NAMESPACE}-${hash(params).substring(0, 3)}`
     this.css = `${this.name}:css`
     this.jsx = `${this.name}:jsx`
     this.html = `${this.name}:html`
     this.watch = `${this.name}:watch`
     this.metadata = `${this.name}:metadata`
+    this.staticAssets = `${this.name}:static-assets`
     this.signalLivereload = `${this.name}:livereload-signal`
     this.default = this.html
     this.params = params
@@ -37,6 +40,7 @@ export default class CompileTasks {
         `${source.css.root}/**/*.css`,
         `${source.js.web}/**/*.{js,jsx}`,
         `${source.js.tasks}/**/*.{js,jsx}`,
+        `${source.assets}/**/*.${staticAssetExtensions}`,
         // apparently order matters, keep the blacklist at the bottom!
         `!${source.js.root}/${metaname}.js`,
       ], [this.signalLivereload])
@@ -47,7 +51,7 @@ export default class CompileTasks {
       execSync(`touch ${output.root}/${livereloadSignal}`)
     })
 
-    gulp.task(this.html, [this.jsx], () => {
+    gulp.task(this.html, [this.jsx, this.staticAssets], () => {
       const renderPipeline =
         requireFresh('./compile/gulp-render-pipeline.js').default
 
@@ -103,6 +107,7 @@ export default class CompileTasks {
           require('postcss-cssnext')({
             versions: 'last 2 versions > 10%',
           }),
+          require('postcss-inline-svg')({ path: './' }),
           require('postcss-browser-reporter')(),
         ])))
         .pipe(concat(OUTPUT_CSS_NAME))
@@ -161,6 +166,14 @@ export default class CompileTasks {
         }))
         .pipe(gulp.dest(output.artifacts))
         .pipe(gulpif(publish, gulp.dest(directory)))
+    })
+
+    gulp.task(this.staticAssets, [], () => {
+      return gulp.src([
+        `!${source.assets}/_inline-only/**/*`,
+        `${source.assets}/**/*.${staticAssetExtensions}`,
+      ])
+        .pipe(gulp.dest(output.assets))
     })
   }
 }

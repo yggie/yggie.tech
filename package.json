@@ -18,7 +18,7 @@
   "homepage": "https://github.com/yggie/upgraded-octo-goggles#readme",
   "devDependencies": {
     "babel-core": "^6.14.0",
-    "babel-plugin-inline-json-import": "^0.1.0",
+    "babel-plugin-inline-json-import": "git@github.com:yggie/babel-plugin-inline-json-import.git#use-exit-for-plugin-logic",
     "babel-plugin-module-resolver": "^2.2.0",
     "babel-plugin-transform-es2015-modules-amd": "^6.8.0",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
@@ -43,6 +43,7 @@
     "postcss-browser-reporter": "^0.5.0",
     "postcss-cssnext": "^2.8.0",
     "postcss-import": "^8.1.2",
+    "postcss-inline-svg": "^2.2.0",
     "postcss-modules": "^0.5.2",
     "postcss-url": "^5.1.2",
     "preact": "^6.0.2",
