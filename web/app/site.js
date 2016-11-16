@@ -20,7 +20,7 @@ function createInstance(instanceData) {
     }
 
     wasPublished() {
-      return this._publishedDate === null
+      return !!this._publishedDate
     }
 
     publishedDate() {

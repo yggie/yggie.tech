@@ -19,17 +19,23 @@ export default function generateMetadata(name, { publish, publishedMetadata }) {
 
     const subpath = path.relative(metadataBuffer.base, file.path)
       .replace(`-page${path.extname(file.path)}`, '')
-    const { default: Node } = requireFresh(file.path)
-    const { pageTitle } = new Node().render().attributes
+    const { PAGE_META } = requireFresh(file.path)
+    const { title, fixtureData } = PAGE_META
 
     const entry = {
       ...fetchPublishedBlogEntry(metadataBuffer.published, subpath),
-      title: pageTitle,
+      title: title,
       subpath: subpath,
     }
 
     if (publish && !entry.publishedTime) {
       entry.publishedTime = (new Date()).toJSON()
+    }
+
+    if (!publish && fixtureData) {
+      if (fixtureData.publishedDate) {
+        entry.publishedTime = fixtureData.publishedDate.toJSON()
+      }
     }
 
     metadataBuffer.blogs[file.path] = entry

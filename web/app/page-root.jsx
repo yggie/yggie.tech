@@ -1,4 +1,5 @@
 import preact from 'preact'
+import site from './site.js'
 
 let router = null // instantiated later as a singleton
 export const ROOT_ID = 'root-view'
@@ -22,8 +23,8 @@ export default class PageRoot extends preact.Component {
     router.mountPage(this)
   }
 
-  updatePageMeta(props) {
-    select('title').innerText = props.pageTitle || 'Page Title'
+  updatePageMeta({ pageMetadata }) {
+    select('title').innerText = pageMetadata.title || 'Page Title'
 
     function select(selector) {
       return document.head.querySelector(selector)
@@ -99,7 +100,9 @@ class Router {
     const { pageNode } = this
     const { base: rootElement } = pageNode
     const rootParent = rootElement.parentNode
-    const vnode = preact.h(Component.default)
+    const vnode = preact.h(Component.default, {
+      site: site,
+    })
     preact.render(vnode, rootParent, rootElement)
 
     if (!skipPushState) {

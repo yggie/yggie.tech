@@ -39,7 +39,8 @@ export default class ServerRenderingTemplate extends preact.Component {
     // assumes that the required attributes are passed in the props, as required
     // by the Page component
     const Node = children[0].nodeName
-    const { pageTitle } = new Node().render().attributes
+    const { pageMetadata } = new Node(this.props).render().attributes
+    const { title: pageTitle } = pageMetadata
 
     return { children, pageTitle, globalStylesheet }
   }
@@ -90,10 +91,13 @@ export default class ServerRenderingTemplate extends preact.Component {
         function onLoadScript() {
           requirejs.config(${JSON.stringify(requireJsConfig)});
 
-          require(['preact', '${pageModule}'], function(preact, Component) {
-            var root = document.getElementById('${ROOT_ID}');
-            preact.render(preact.h(Component.default), document.body, root);
-          });
+          require(['preact', 'site', '${pageModule}'], onLoadDependencies);
+        }
+
+        function onLoadDependencies(preact, site, Component) {
+          var root = document.getElementById('${ROOT_ID}');
+          var component = preact.h(Component.default, { site: site });
+          preact.render(component, document.body, root);
         }
       }).call(this, window, document);`, {
         fromString: true,

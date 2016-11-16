@@ -4,7 +4,8 @@ import ContentContainer from '../_layout/content-container.jsx'
 
 export default class PrimaryHeader extends preact.Component {
   render() {
-    const props = this.props
+    const { pageMetadata } = this.props
+    const { title } = pageMetadata
 
     return (
       <header className={styles.header}>
@@ -18,7 +19,7 @@ export default class PrimaryHeader extends preact.Component {
             </ul>
           </nav>
 
-          <h1 className={styles['page-title']}>{props.pageTitle}</h1>
+          <h1 className={styles['page-title']}>{title}</h1>
         </ContentContainer>
       </header>
     )

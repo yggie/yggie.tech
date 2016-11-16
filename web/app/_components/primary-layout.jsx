@@ -13,7 +13,7 @@ export default class PrimaryLayout extends preact.Component {
       <PageRoot {...props}>
         <PageContainer className={stickyFooterStyles.parent}>
           <div className={stickyFooterStyles['above-footer']}>
-            <PrimaryHeader pageTitle={props.pageTitle}></PrimaryHeader>
+            <PrimaryHeader pageMetadata={props.pageMetadata}></PrimaryHeader>
 
             <main>
               {props.children}

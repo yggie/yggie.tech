@@ -1,23 +1,30 @@
 import preact from 'preact'
-import site from './site.js'
 import PrimaryLayout from './_components/primary-layout.jsx'
 import ContentContainer from './_layout/content-container.jsx'
 
+export const PAGE_META = {
+  title: 'My Blog',
+}
+
 export default class BlogPage extends preact.Component {
   render() {
+    const { site } = this.props
+
     return (
-      <PrimaryLayout pageTitle="My Blog" className="blog-page">
+      <PrimaryLayout pageMetadata={PAGE_META} className="blog-page">
         <ContentContainer>
           <h1>This is the blog page!</h1>
 
           <p>Various links to all those bloggy goodness:</p>
 
           <ul>
-            {(this.site.blogPosts().map((post) => {
+            {(site.blogPosts().map((post) => {
               return (
                 <li>
                   <a href={`/blog/${post.subpath()}`}>
                     {post.title()}
+                    <br/>
+                    Date: {String(post.publishedDate())}
                   </a>
                 </li>
               )
@@ -26,11 +33,5 @@ export default class BlogPage extends preact.Component {
         </ContentContainer>
       </PrimaryLayout>
     )
-  }
-
-  constructor() {
-    super()
-
-    this.site = site
   }
 }

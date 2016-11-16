@@ -136,7 +136,13 @@ export default class CompileTasks {
       const babelConfig = JSON.parse(fs.readFileSync('./.babelrc').toString())
       /* eslint-enable no-sync */
 
-      return gulp.src(`${source.js.root}/**/*.{js,jsx}`)
+      const sources = [`${source.js.root}/**/*.{js,jsx}`]
+
+      if (publish) {
+        sources.push(`!${source.js.root}/**/_fixtures/**/*`)
+      }
+
+      return gulp.src(sources)
         .pipe(sourcemaps.init())
         .pipe(babel({
           ...babelConfig,
@@ -158,7 +164,13 @@ export default class CompileTasks {
       const basename = path.basename(source.publishedMetadata)
       const filename = basename.replace(path.extname(basename), '')
 
-      return gulp.src(`${source.js.blogs}/**/*-page.jsx`)
+      const sources = [`${source.js.blogs}/**/*-page.jsx`]
+
+      if (publish) {
+        sources.push(`!${source.js.blogs}/**/_fixtures/**/*`)
+      }
+
+      return gulp.src(sources)
         .pipe(plumber())
         .pipe(generateMetadata(filename, {
           publish: publish,
