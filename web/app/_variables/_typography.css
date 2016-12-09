@@ -1,8 +1,11 @@
 :root {
   --typography--body-font-family: 'Muli', sans-serif;
+  --typography--monospace-font-family: 'Roboto Mono', monospace;
 
   --typography--small-font-size: 0.75em;
+  --typography--normal-font-size: 1em;
   --typography--large-font-size: 1.25em;
+  --typography--very-large-font-size: 1.75em;
 
   --typography--medium-word-spacing: 1.0em;
 }

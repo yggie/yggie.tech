@@ -1,5 +1,4 @@
 import preact from 'preact'
-import site from './site.js'
 
 let router = null // instantiated later as a singleton
 export const ROOT_ID = 'root-view'
@@ -98,7 +97,7 @@ class Router {
 
   renderPage(Component, pageModule, url, skipPushState) {
     const { pageNode } = this
-    const { base: rootElement } = pageNode
+    const { base: rootElement, props: { site } } = pageNode
     const rootParent = rootElement.parentNode
     const vnode = preact.h(Component.default, {
       site: site,

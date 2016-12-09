@@ -3,13 +3,13 @@ import BlogPostLayout from '../blog-post-layout.jsx'
 import ContentContainer from '../../_layout/content-container.jsx'
 
 export const PAGE_META = {
-  title: 'Dummy blog post 5',
+  title: 'Dummy blog post 6',
   fixtureData: {
-    publishedDate: new Date(2015, 4, 17),
+    publishedDate: new Date(2014, 11, 23),
   },
 }
 
-export default class DummyBlogPostFivePage extends preact.Component {
+export default class DummyBlogPostSixPage extends preact.Component {
   render() {
     const { site } = this.props
 

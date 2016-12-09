@@ -15,8 +15,8 @@ function createInstance(instanceData) {
       return this._raw.title
     }
 
-    subpath() {
-      return this._raw.subpath
+    href() {
+      return `/blog/${this._raw.subpath}`
     }
 
     wasPublished() {

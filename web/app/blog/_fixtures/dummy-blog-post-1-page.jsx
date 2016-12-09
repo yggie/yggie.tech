@@ -9,8 +9,10 @@ export const PAGE_META = {
 
 export default class DummyBlogPostOnePage extends preact.Component {
   render() {
+    const { site } = this.props
+
     return (
-      <BlogPostLayout pageMetadata={PAGE_META} className="home-page">
+      <BlogPostLayout pageMetadata={PAGE_META} site={site}>
         <ContentContainer>
           <p>This is some random text</p>
 

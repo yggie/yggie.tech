@@ -14,7 +14,7 @@ export default class ServerRenderingTemplate extends preact.Component {
         <meta charSet="UTF-8"/>
         <title>{pageTitle}</title>
 
-        <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css?family=Muli|Roboto+Mono:300" rel="stylesheet"/>
         <link href={`${globalStylesheet}`} rel="stylesheet"/>
       </head>
 
@@ -37,7 +37,7 @@ export default class ServerRenderingTemplate extends preact.Component {
     const { globalStylesheet } = assets
 
     // assumes that the required attributes are passed in the props, as required
-    // by the Page component
+    // by the PageRoot component
     const Node = children[0].nodeName
     const { pageMetadata } = new Node(this.props).render().attributes
     const { title: pageTitle } = pageMetadata
@@ -96,7 +96,7 @@ export default class ServerRenderingTemplate extends preact.Component {
 
         function onLoadDependencies(preact, site, Component) {
           var root = document.getElementById('${ROOT_ID}');
-          var component = preact.h(Component.default, { site: site });
+          var component = preact.h(Component.default, { site: site.default });
           preact.render(component, document.body, root);
         }
       }).call(this, window, document);`, {

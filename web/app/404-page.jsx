@@ -8,8 +8,10 @@ export const PAGE_META = {
 
 export default class _404Page extends preact.Component {
   render() {
+    const { site } = this.props
+
     return (
-      <PageRoot pageMetadata={PAGE_META}>
+      <PageRoot pageMetadata={PAGE_META} site={site}>
         <ContentContainer>
           <main>
             <h1>What you were looking for was not found</h1>

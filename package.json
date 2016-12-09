@@ -1,21 +1,23 @@
 {
-  "name": "upgraded-octo-goggles",
+  "name": "yggie.tech",
   "version": "0.0.1",
   "description": "An experimental and extensible virtual DOM-based static site",
   "main": "index.js",
   "scripts": {
+    "prestart": "npm install",
+    "start": "gulp server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yggie/upgraded-octo-goggles.git"
+    "url": "git+https://github.com/yggie/yggie.tech.git"
   },
   "author": "Bryan Yap",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/yggie/upgraded-octo-goggles/issues"
+    "url": "https://github.com/yggie/yggie.tech/issues"
   },
-  "homepage": "https://github.com/yggie/upgraded-octo-goggles#readme",
+  "homepage": "https://github.com/yggie/yggie.tech#readme",
   "devDependencies": {
     "babel-core": "^6.14.0",
     "babel-plugin-inline-json-import": "git@github.com:yggie/babel-plugin-inline-json-import.git#use-exit-for-plugin-logic",

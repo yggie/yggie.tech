@@ -10,8 +10,10 @@ export const PAGE_META = {
 
 export default class IndexPage extends preact.Component {
   render() {
+    const { site } = this.props
+
     return (
-      <PageRoot pageMetadata={PAGE_META}>
+      <PageRoot pageMetadata={PAGE_META} site={site}>
         <PrimaryHeader pageMetadata={PAGE_META}></PrimaryHeader>
 
         <main>
